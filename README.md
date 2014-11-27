@@ -43,10 +43,14 @@ not on **Chrome Webstore**.
 ## Installing
 
 Unfortunately, the only way that I found to call a python function from
-JavaScript was creating a web app using [Flask]. Therefore, after cloning the
-repo, you have to run `./app.py`. I set the host to `http://127.0.0.1:5000`
-(default). If you get a different one when you run the app, make sure to change
-the **third** line of `password.js`:
+JavaScript was creating a web app using [Flask]. Therefore, you need to install
+it with:
+
+> pip install Flask
+
+After cloning the repo, you have to run `./app.py`. I set the host to
+`http://127.0.0.1:5000` (default). If you get a different one when you run the
+app, make sure to change the **third** line of `password.js`:
 
 > url: 'http://127.0.0.1:5000/generatePassword',
 
