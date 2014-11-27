@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "password",
+  "description": "Automatically generate passwords.",
+  "version": "0.1",
+  "permissions": [
+    "clipboardWrite",
+    "tabs"
+  ],
+  "browser_action": {
+    "default_popup": "password.html"
+  },
+  "content_scripts": [{
+    "js": [
+      "js/jquery-2.1.1.min.js",
+      "js/password.js" ],
+    "matches": [
+      "http://*/*",
+      "https://*/*"]
+  }]
+}
