@@ -35,28 +35,20 @@ extension of it. The generation of the password is being done the same way the
   The longer the better. See the relevant xkcd for more info:
   https://xkcd.com/936/
   
-The code that generates the password is on `password.py`
+The code that generates the password is on `extension/js/password.js`
 
 As the current version is a prototype, this is the unpacked extension and it is
 not on **Chrome Webstore**.
 
+The first version depended on the Python script and it was not very practical.
+*tych0* got in touch and assisted me on implementing it using only JavaScript
+for this new version. Unfortunately you will not get the same results from them.
+
 ## Installing
 
-Unfortunately, the only way that I found to call a python function from
-JavaScript was creating a web app using [Flask]. Therefore, you need to install
-it with:
-
-> pip install Flask
-
-After cloning the repo, you have to run `./app.py`. I set the host to
-`http://127.0.0.1:5000` (default). If you get a different one when you run the
-app, make sure to change the **third** line of `password.js`:
-
-> url: 'http://127.0.0.1:5000/generatePassword',
-
-Install the extension by going to `Menu > More tools > Extensions` on Chrome,
-clicking `Load unpacked extension...` and pointing to the `extension` directory
-inside the cloned repo.
+After cloning the repo, install the extension by going to `Menu > More tools >
+Extensions` on Chrome, clicking `Load unpacked extension...` and pointing to the
+`extension` directory.
 
 ## Screenshot
 
@@ -66,24 +58,29 @@ inside the cloned repo.
 
 When you need a strong password for a specific website, click on the **puzzle
 piece** icon  on the top bar of the browser and the first field should already
-have the current domain. Type a password, length (if you would like it to be
-different than ten) and click `Generate`.
+have the current domain. Type a length (if you would like it to be different
+than ten), a password, and finally click `Generate` (or press enter).
 
 The last field should have the password and will be automatically copied to the
 clipboard :)
 
+## Performance
+
+I am not sure why, but CryptoJS' PBKDF2 is not performing well. While the Python
+script generates the key with 100,000 iterations in a reasonable time, the
+JavaScript runs only 100 iterations to generate a key in the approximate same
+time. Switching to 1,000 iterations already makes it unfeasible, because it
+takes around 6 seconds and more iterations than that will make it crash. You can
+check [this test] that I did.
+
 ## Feedback
 
-I would love to get feedback since I do not know much about Flask, JavaScript
-and Chrome Extensions. I do not like the current solution, since the user needs
-to run the app to make the extension work, but this was the best approach I
-could find. I might change everything to JavaScript or maybe find a better way
-to keep using python. So far, that is what I have.
-I still have to work on some details such as icon, error handling, etc...
+I would love to get feedback since I do not know much about JavaScript, CryptoJS
+and Chrome Extensions. I will keep improving it whenever I am able to.
 
 **Thank you!**
 
-[Flask]: http://flask.pocoo.org
 [original repo]: https://github.com/tych0/password
 [password screenshot]: screenshot.png
+[this test]: http://jsperf.com/cryptojs-pbkdf2
 [tych0]: https://github.com/tych0
